@@ -10,7 +10,7 @@ from .serializers import URLShortenSerializer
 BASE_URL="http://127.0.0.1:8000/"
 characters_available="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!*^$-_"
 
-@api_view(['POST'])
+@api_view(['POST','GET'])
 def shorten_url(request,name=None):
     if request.method=='POST':
         data=request.data
@@ -25,19 +25,19 @@ def shorten_url(request,name=None):
 
     if request.method=='GET':
         try:
-            snippet=URLShortenModel.objects.get(name=name)
+            snippet=URLShortenModel.objects.filter(name=name)
+            serializer=URLShortenSerializer(snippet)
+            return Response(serializer.data)
         except URLShortenModel.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
         
-        serializer=URLShortenSerializer(snippet)
-        return Response(serializer.data)
 
 def redirect_url(request,shorturl):
     try:
         url_obj=URLShortenModel.objects.filter(short_url=shorturl)
         if url_obj is not None:
             longurl=url_obj.long_url
-            redirect(longurl)
+            return redirect(longurl)
     except BaseException as e:
         return e
 
