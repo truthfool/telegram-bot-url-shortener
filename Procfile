@@ -1,2 +1,2 @@
 web: gunicorn urlshortener.urlshortener.wsgi
-release: python manage.py migrate
+release: python urlshortener/manage.py migrate
