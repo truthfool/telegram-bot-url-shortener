@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.shortcuts import redirect
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -5,6 +6,7 @@ from rest_framework import status
 from .models import URLShortenModel
 import random
 from .serializers import URLShortenSerializer
+from django.core.exceptions import ObjectDoesNotExist
 # Create your views here.
 
 BASE_URL="http://127.0.0.1:8000/"
@@ -17,27 +19,29 @@ def shorten_url(request,name=None):
         suffix_url=("".join(random.sample(characters_available,6)))
         shorturl=BASE_URL+suffix_url
         URLShortenModel.objects.create(
-            name=data['name'] or "",
+            name=data['name'] or str(datetime.now()),
             long_url=data['longurl'],
             short_url=shorturl
         )
         return Response({'name':data['name'],'longurl':data['longurl'],'shorturl':shorturl })
 
-    if request.method=='GET':
+    elif request.method=='GET':
         try:
-            snippet=URLShortenModel.objects.filter(name=name)
+            name=request.query_params.get('name',None)
+            snippet=URLShortenModel.objects.get(name=name)
             serializer=URLShortenSerializer(snippet)
             return Response(serializer.data)
-        except URLShortenModel.DoesNotExist:
+        except ObjectDoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
         
 
-def redirect_url(request,shorturl):
+def redirect_url(request,urlname):
     try:
-        url_obj=URLShortenModel.objects.filter(short_url=shorturl)
+        urlname=BASE_URL+urlname
+        url_obj=URLShortenModel.objects.get(short_url=urlname)
         if url_obj is not None:
             longurl=url_obj.long_url
             return redirect(longurl)
-    except BaseException as e:
-        return e
+    except ObjectDoesNotExist as e:
+        print(e)
 
