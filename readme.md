@@ -15,6 +15,4 @@ curl --location --request POST 'BASE_URL' \
 }'
 ```
 Access the Telegram bot at :
-```
-t.me/ishanurl_bot
-```
+[t.me/ishanurl_bot](t.me/ishanurl_bot)
