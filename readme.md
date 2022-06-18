@@ -14,3 +14,7 @@ curl --location --request POST 'BASE_URL' \
     "longurl":"Your Long URL"
 }'
 ```
+Access the Telegram bot at :
+```
+t.me/ishanurl_bot
+```
