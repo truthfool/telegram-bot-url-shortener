@@ -16,3 +16,6 @@ curl --location --request POST 'BASE_URL' \
 ```
 Access the Telegram bot at :
 [t.me/ishanurl_bot](t.me/ishanurl_bot)
+
+Deployed at :
+[https://url-shortener-telegram-bot.herokuapp.com/](https://url-shortener-telegram-bot.herokuapp.com/)
