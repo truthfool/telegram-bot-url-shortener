@@ -1,10 +1,10 @@
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 import requests
 import json
-from dotenv import load_dotenv
+from dotenv import load_dotenv,find_dotenv
 import os
 
-load_dotenv('../.env')
+load_dotenv(find_dotenv())
 
 
 def convert_longurl(longurl,username):
