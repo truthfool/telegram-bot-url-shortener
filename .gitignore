@@ -1,4 +1,2 @@
-urlshortener/urlenv/
-.vscode/
-target/
-urlshortener/.env
+urlenv/
+.env
