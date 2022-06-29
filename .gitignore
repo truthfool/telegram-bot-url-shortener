@@ -1,2 +1,4 @@
 urlenv/
 .env
+*.pyc
+db.sqlite3
