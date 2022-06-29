@@ -10,7 +10,7 @@ import os
 from dotenv import load_dotenv
 from django.core.exceptions import ObjectDoesNotExist
 # Create your views here.
-load_dotenv('../../.env')
+load_dotenv('../.env')
 
 # BASE_URL="http://127.0.0.1:8000/"
 characters_available="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!*^$-_"
