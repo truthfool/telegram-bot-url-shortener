@@ -2,3 +2,4 @@ urlenv/
 .env
 *.pyc
 db.sqlite3
+# Testing git push
